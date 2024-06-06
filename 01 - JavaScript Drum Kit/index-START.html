@@ -59,7 +59,30 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-
+  // The current actions will be executed when you keydown on the keyboard.
+  window.addEventListener('keydown', (e) => {
+    // If the user presses a valid key value, then it will be store in a variable.
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    // In the same way, if the user presses a valid key div, then it will be store.
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+    // If the audio and the key-div doesn't exist, then just do nothing.
+    if(!audio && !key) {
+      return;
+    // But if exists, then run a series of actions.
+    } else {
+      // The div add a class playing
+      key.classList.add('playing');
+      // Set a time to end the class
+      const audioTime = 500;
+      audio.currentTime = 0;
+      // Play the audio
+      audio.play();
+      // Execute the action remove the class playing in the time set by the audioTime.
+      setTimeout(() => {
+        key.classList.remove('playing');
+      }, audioTime)
+    }
+  })
 </script>
 
 
