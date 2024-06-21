@@ -67,24 +67,44 @@
       transition: all .5s;
       transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
     }
+    .hour-hand {
+      background: rgb(200, 0, 10);
+    }
+    .min-hand {
+      background: rgb(0, 200, 10);
+    
+    }
+    .second-hand {
+      background: rgb(0, 0, 200);
+    }
   </style>
   <script>
+    // Create a function to calculate the current time and update it every second.
     const setDate = () => {
-      const now = new Date();
-      const seconds = now.getSeconds();
-      const minutes = now.getMinutes();
-      const hours = now.getHours();
-      const secondsToDegrees = seconds / 60 * 360;
-      const minutesToDegrees = ((minutes / 60) * 360) + 90;
-      const hourToDegrees = ((hours / 12) * 360) + 90;
+      // Store the three clock hands
       const secondHand = document.querySelector('.second-hand');
       const minutesHand = document.querySelector('.min-hand');
       const hourHand = document.querySelector('.hour-hand');
+      // Store the current date
+      const now = new Date();
+      // Get the current seconds
+      const seconds = now.getSeconds();
+      // Get the current minutes
+      const minutes = now.getMinutes();
+      // Get the current hours
+      const hours = now.getHours();
+      // To get the position of the current seconds in the clock, we need to calculate the current seconds and divide it by 60, then multiply per 360 degrees to get the position of the seconds in the clock.
+      const secondsToDegrees = seconds / 60 * 360;
+      // As the same way, we calculate the minutes but to get the position of the minutes, we need to add 90 to it.
+      const minutesToDegrees = ((minutes / 60) * 360) + 90;
+      // For the hours, we need to divide the hours by 12, multiply it by 360, and then add 90 to get the current position.
+      const hourToDegrees = ((hours / 12) * 360) + 90;
+      // The hands get rotated their position with the current position in degrees got from the previous variables.
       secondHand.style.transform = `rotate(${secondsToDegrees}deg)`;
       minutesHand.style.transform = `rotate(${minutesToDegrees}deg)`;
       hourHand.style.transform = `rotate(${hoursToDegrees}deg)`;
-      
     }
+    // The function will update the position of the time hands every second to give a realistic functionality.
     setInterval(setDate, 1000)
 
   </script>

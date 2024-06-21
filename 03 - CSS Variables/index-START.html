@@ -19,10 +19,14 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img id="image-js" src="https://plus.unsplash.com/premium_photo-1664194583917-e2ca85efc15e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="800" height="500">
 
   <style>
-
+    :root {
+      --base: rgba(255, 200, 0);
+      --spacing: 20px;
+      --blur: 10px;
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -43,9 +47,30 @@
     input {
       width: 100px;
     }
+    #image-js {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+    .hl {
+      color: var(--base);
+    }
   </style>
 
   <script>
+    // Select all the inputs in the HTML file
+    const inputs = document.querySelectorAll('.controls input');
+    const image = document.querySelector('#image-js');
+    //Create a function to update the image properties
+    function handleUpdate() {
+      //Get the suffix from the input dataset. If no exist, only return a blank string
+      const suffix = this.dataset.sizing || '';
+      // Updates the indicated property within the document. In this case, each input has a corresponding value name that corresponds to the style attribute 
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+    // For each input, execute the handleUpdate when the input changes his value or when you move the mouse.
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>

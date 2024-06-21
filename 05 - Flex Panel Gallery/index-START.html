@@ -5,8 +5,6 @@
   <title>Flex Panels 💪</title>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
   <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
   <style>
     html {
       box-sizing: border-box;
@@ -27,12 +25,17 @@
     .panels {
       min-height: 100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
       background: #6B0F9C;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
       color: white;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
       text-align: center;
       align-items: center;
       /* Safari transitionend event.propertyName === flex */
@@ -46,17 +49,35 @@
       background-position: center;
     }
 
-    .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
-    .panel2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); }
+
+    .panel1 { background-image:url(https://plus.unsplash.com/premium_photo-1677706562664-6638cdf8abce?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); }
+    .panel2 { background-image:url(https://images.unsplash.com/photo-1609372332255-611485350f25?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); }
     .panel3 { background-image:url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d); }
-    .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
-    .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
+    .panel4 { background-image:url(https://images.unsplash.com/photo-1611931960487-4932667079f1?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); }
+    .panel5 { background-image:url(https://images.unsplash.com/photo-1587573089283-f14c65841f75?q=80&w=1065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); }
 
     /* Flex Children */
     .panel > * {
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel > *:first-child{
+      transform: translateY(-100%);
+    }
+    .panel.open-active > *:first-child {
+      transform: translateY(0);
+    }
+    .panel > *:last-child {
+      transform: translateY(100%);
+    }
+    .panel.open-active > *:last-child {
+      transform: translateY(0);
     }
 
     .panel p {
@@ -71,12 +92,13 @@
     }
 
     .panel.open {
+      flex: 5;
       font-size: 40px;
     }
 
   </style>
-
-
+</head>
+<body>
   <div class="panels">
     <div class="panel panel1">
       <p>Hey</p>
@@ -106,7 +128,23 @@
   </div>
 
   <script>
+    // Select all the panels in the HTML file
+    const panels = document.querySelectorAll('.panel');
 
+    //Create a function that toggle a class .open to itself when it's clicked
+    function toggleOpen() {
+      this.classList.toggle('open');
+    }
+    //Create a function to toggle a class .open-active if it changes a specific property previously.
+    function toggleActive(e) {
+      // If the property changes, toggle the class
+      if(e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
+    
+    panels.forEach( panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
   </script>
 
 

@@ -61,6 +61,9 @@
 <script>
   // The current actions will be executed when you keydown on the keyboard.
   window.addEventListener('keydown', (e) => {
+    console.log(e.code)
+    console.log(e.keyCode);
+    
     // If the user presses a valid key value, then it will be store in a variable.
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     // In the same way, if the user presses a valid key div, then it will be store.
